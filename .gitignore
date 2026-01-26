@@ -2,3 +2,13 @@
 /.gradle/
 /build/
 /build/classes/java/main/
+.idea/
+*.iml
+out/
+*.class
+*.log
+/.classpath
+/.project
+/.settings/
+/.DS_Store
+Thumbs.db
