@@ -17,3 +17,4 @@ gradle-*-bin.zip
 gradle-*-bin.jar
 .crt
 .key
+.pem
