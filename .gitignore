@@ -14,3 +14,4 @@ out/
 Thumbs.db
 .env
 gradle-*-bin.zip
+gradle-*-bin.jar
