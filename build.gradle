@@ -22,7 +22,7 @@ dependencies {
 }
 
 war {
-    archiveFileName = 'crud-file.war'
+    archiveFileName = 'app.war'
 }
 
 tasks.withType(JavaCompile).configureEach {

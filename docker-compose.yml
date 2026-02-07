@@ -1,0 +1,37 @@
+  version: '3.9'
+  services:
+    wildfly:
+      build:
+        context: .
+        dockerfile: Dockerfile
+      image: ricitosdeoro2001/wildfly:latest
+      container_name: WILDFLY
+      ports:
+        - "8080:8080"
+        - "9990:9990"
+      networks:
+        - appnet
+      restart: unless-stopped
+
+    nginx:
+      image: nginx:stable-alpine
+      container_name: nginx-proxy
+      ports:
+        - "80:80"
+        - "443:443"
+      networks:
+        - appnet
+      volumes:
+        - ./default.conf:/etc/nginx/conf.d/default.conf:ro
+        - ./certs:/etc/nginx/certs:ro
+        - nginx-logs:/var/log/nginx:rw
+      depends_on:
+        - wildfly
+      restart: unless-stopped
+
+  networks:
+    appnet:
+      external: true
+
+  volumes:
+    nginx-logs:
