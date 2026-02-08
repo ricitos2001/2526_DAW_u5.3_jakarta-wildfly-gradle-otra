@@ -3,4 +3,3 @@ build
 *.zip
 wildfly-logs
 .idea
-gradle-*-bin.zip
