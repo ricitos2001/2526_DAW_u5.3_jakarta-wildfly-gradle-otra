@@ -1,6 +1,6 @@
 # CRUD de tareas en fichero (Jakarta EE + WildFly)
 
-Aplicacion sencilla con API CRUD y una interfaz web basica para gestionar tareas. Los datos se almacenan en un fichero JSON dentro del directorio de datos de WildFly.
+Aplicación sencilla con API CRUD y una interfaz web básica para gestionar tareas. Los datos se almacenan en un fichero JSON dentro del directorio de datos de WildFly.
 
 ## Funcionalidad
 - API REST `CRUD` para tareas.
@@ -8,11 +8,11 @@ Aplicacion sencilla con API CRUD y una interfaz web basica para gestionar tareas
 - Persistencia en fichero JSON.
 
 ## Endpoints
-- `GET /crud-file/api/tasks`
-- `GET /crud-file/api/tasks/{id}`
-- `POST /crud-file/api/tasks`
-- `PUT /crud-file/api/tasks/{id}`
-- `DELETE /crud-file/api/tasks/{id}`
+- `GET http://localhost:8080/app/api/tasks`
+- `GET http://localhost:8080/app/api/tasks/{id}`
+- `POST http://localhost:8080/app/api/tasks`
+- `PUT http://localhost:8080/app/api/tasks/{id}`
+- `DELETE http://localhost:8080/app/api/tasks/{id}`
 
 Ejemplo de payload:
 ```json
@@ -20,29 +20,29 @@ Ejemplo de payload:
 ```
 
 ## Probar la API con curl
-Base URL (si el WAR esta desplegado en localhost):
-`http://localhost:8080/crud-file/api/tasks`
+Base URL (si el WAR está desplegado en localhost):
+`http://localhost:8080/app/api/tasks`
 
 Listar tareas:
 ```bash
-curl -s http://localhost:8080/crud-file/api/tasks
+curl -s http://localhost:8080/app/api/tasks
 ```
 
 Crear tarea:
 ```bash
-curl -s -X POST http://localhost:8080/crud-file/api/tasks \
+curl -s -X POST http://localhost:8080/app/api/tasks \
   -H "Content-Type: application/json" \
   -d '{ "title": "Comprar pan", "done": false }'
 ```
 
-Obtener tarea por id:
+Obtener tarea por ID:
 ```bash
-curl -s http://localhost:8080/crud-file/api/tasks/1
+curl -s http://localhost:8080/app/api/tasks/1
 ```
 
 Actualizar tarea:
 ```bash
-curl -s -X PUT http://localhost:8080/crud-file/api/tasks/1 \
+curl -s -X PUT http://localhost:8080/app/api/tasks/1 \
   -H "Content-Type: application/json" \
   -d '{ "title": "Comprar leche", "done": true }'
 ```
@@ -59,7 +59,7 @@ Por defecto se guarda en:
 Si necesitas otra ruta, puedes configurar la propiedad de sistema:
 `-Dtasks.file=/ruta/absoluta/tasks.json`
 
-## Construccion
+## Construcción
 Se usa Gradle.
 ```bash
 ./gradlew war
@@ -73,7 +73,7 @@ El WAR queda en `build/libs/crud-file.war`.
 ## Despliegue en WildFly (contenedor con otra app)
 Estos pasos siguen el mismo procedimiento de la practica para levantar WildFly y luego desplegar este WAR en el mismo contenedor.
 
-### Opcion A: levantar contenedor desde cero
+### Opción A: levantar contenedor desde cero
 #### 1) Preparar el entorno Docker
 ```bash
 docker --version
@@ -85,7 +85,7 @@ docker run -d --name wildfly -p 8080:8080 -p 9990:9990 quay.io/wildfly/wildfly:l
 docker ps
 ```
 
-#### 2) Crear usuario de administracion en el contenedor
+#### 2) Crear usuario de administración en el contenedor
 ```bash
 docker exec -it wildfly /opt/jboss/wildfly/bin/add-user.sh
 ```
@@ -96,7 +96,7 @@ docker restart wildfly
 Consola:
 - `http://localhost:9990`
 
-#### 3) Desplegar esta aplicacion (WAR)
+#### 3) Desplegar esta aplicación (WAR)
 Compila el WAR:
 ```bash
 ./gradlew war
@@ -106,8 +106,8 @@ Copia el WAR al contenedor:
 docker cp build/libs/crud-file.war wildfly:/opt/jboss/wildfly/standalone/deployments/
 ```
 
-### Opcion B: contenedor ya levantado
-Si el contenedor ya esta activo (por ejemplo con otra app desplegada), solo necesitas compilar y copiar el WAR.
+### Opción B: contenedor ya levantado
+Si el contenedor ya está activo (por ejemplo con otra app desplegada), solo necesitas compilar y copiar el WAR.
 
 1) Comprueba que el contenedor sigue activo:
 ```bash
@@ -121,11 +121,11 @@ docker ps
 
 3) Copia el WAR al contenedor existente:
 ```bash
-docker cp build/libs/crud-file.war wildfly:/opt/jboss/wildfly/standalone/deployments/
+docker cp build/libs/app.war wildfly:/opt/jboss/wildfly/standalone/deployments/
 ```
 
 Tras el despliegue, la aplicacion estara disponible en:
-- `http://localhost:8080/crud-file/`
+- `http://localhost:8080/app/`
 
 ## Notas sobre el contenedor
 - Si usas un nombre distinto de contenedor, cambia `wildfly` en los comandos.
